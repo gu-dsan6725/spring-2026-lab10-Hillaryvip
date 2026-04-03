@@ -1,0 +1,37 @@
+[
+  {
+    "input": "What time is it in Tokyo?",
+    "expected_output": "Current time in Tokyo",
+    "expected_tools": ["get_current_time"],
+    "category": "time",
+    "difficulty": "easy"
+  },
+  {
+    "input": "What time is it in London?",
+    "expected_output": "Current time in London",
+    "expected_tools": ["get_current_time"],
+    "category": "time",
+    "difficulty": "easy"
+  },
+  {
+    "input": "Convert 100 USD to EUR",
+    "expected_output": "exchange rate",
+    "expected_tools": ["get_exchange_rate"],
+    "category": "currency",
+    "difficulty": "easy"
+  },
+  {
+    "input": "Convert 50 GBP to USD",
+    "expected_output": "exchange rate",
+    "expected_tools": ["get_exchange_rate"],
+    "category": "currency",
+    "difficulty": "easy"
+  },
+  {
+    "input": "I am planning a business trip from New York to Tokyo. How long is the route to JFK, what time is it in Tokyo, what is the weather there, what is the USD to JPY exchange rate, and what hotels are in Shinjuku?",
+    "expected_output": "directions, time, weather, exchange rate, hotels",
+    "expected_tools": ["get_directions", "get_current_time", "get_weather", "get_exchange_rate", "duckduckgo_search"],
+    "category": "multi_tool",
+    "difficulty": "hard"
+  }
+]

@@ -282,3 +282,55 @@ def get_directions(
     except Exception as e:
         logger.error(f"[Tool] get_directions failed: {e}")
         return json.dumps({"error": str(e)})
+
+# NEW TOOL: CURRENT TIME
+
+
+from datetime import datetime
+from zoneinfo import ZoneInfo
+
+CITY_TIMEZONES = {
+    "tokyo": "Asia/Tokyo",
+    "new york": "America/New_York",
+    "london": "Europe/London",
+    "paris": "Europe/Paris",
+    "los angeles": "America/Los_Angeles"
+}
+
+def get_current_time(city: str) -> str:
+    print(f"[Tool] get_current_time called with city={city}")
+
+    city_lower = city.lower()
+
+    if city_lower not in CITY_TIMEZONES:
+        return f"City '{city}' not found."
+
+    tz = ZoneInfo(CITY_TIMEZONES[city_lower])
+    now = datetime.now(tz)
+
+    time_str = now.strftime("%Y-%m-%d %H:%M:%S")
+    offset = now.strftime("%z")
+    offset = offset[:3] + ":" + offset[3:]
+
+    return f"Current time in {city} is {time_str} ({now.strftime('%Z')}, UTC{offset})"
+
+# NEW TOOL: EXCHANGE RATE
+
+import requests
+
+def get_exchange_rate(from_currency: str, to_currency: str, amount: float = 1.0) -> str:
+    print(f"[Tool] get_exchange_rate called with {from_currency} -> {to_currency}")
+
+    url = f"https://api.frankfurter.app/latest?from={from_currency}&to={to_currency}"
+
+    try:
+        response = requests.get(url)
+        data = response.json()
+
+        rate = data["rates"][to_currency]
+        converted = rate * amount
+
+        return f"{amount} {from_currency} = {converted:.2f} {to_currency} (rate: {rate})"
+
+    except Exception as e:
+        return f"Error fetching exchange rate: {str(e)}"

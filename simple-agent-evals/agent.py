@@ -25,6 +25,7 @@ from tools import (
     get_weather,
 )
 
+from tools import get_current_time, get_exchange_rate
 
 # Configure logging
 logging.basicConfig(
@@ -124,11 +125,16 @@ def _create_agent() -> Agent:
     )
 
     agent = Agent(
-        system_prompt=system_prompt,
-        model=model,
-        tools=[duckduckgo_search, get_weather, get_directions]
-    )
-
+    system_prompt=system_prompt,
+    model=model,
+    tools=[
+        duckduckgo_search,
+        get_weather,
+        get_directions,
+        get_current_time,
+        get_exchange_rate
+    ]
+)
     logger.info("Agent created successfully")
     return agent
 
